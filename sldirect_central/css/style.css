@@ -1,0 +1,364 @@
+@CHARSET "UTF-8";
+/* img { behavior: url(iepngfix.htc) }
+ html div#map img { behavior: none; } */
+
+body{
+	font-size:11px;
+	font-family:Lucida Sans, Verdana;	
+	margin:0px;
+	-moz-box-sizing:border-box;
+}
+a {
+	color:#a21170;
+	text-decoration:none;
+	border-bottom:dotted 1px #a21170;
+	
+}
+h1 {
+	font-size:3em;
+	letter-spacing:-1px;
+	font-weight:bold;
+	margin:10px;
+	color:#424242;
+	margin-bottom:10px;
+	font-family:Helvetica;
+}
+
+img { vertical-align:middle;}
+
+a img { border:none;}
+
+div {
+	-moz-box-sizing:border-box;
+	font-family: "Lucida Sans", Verdana !important;	
+	font-size:0.9em;
+	letter-spacing:-0.5px;
+}
+table.form {
+	width:100%;
+	border-spacing:4px;	
+	border-bottom:solid 2px gray;
+	margin-bottom: 14px;
+}
+
+table.form td{
+	vertical-align:top;	
+	padding:4px;
+}
+
+
+table.form label {
+	display:block;	
+	font-weight:normal;	
+	font-size:16px;
+}
+
+table.form label:after {
+	content:":";	
+		
+}
+
+
+table.form textarea {
+	width:516px;
+	height:64px;
+	font-weight:normal;
+	font-size:16px;
+}
+
+table.form input {
+	border:inset 1px;
+	padding:2px;
+	font-size:16px;
+}
+
+form button {
+	font-size:18px;
+	border:outset 1px;
+	padding:4px;
+}
+
+table.grid {
+	
+	border-spacing:0px;
+	width:100%;
+	border:solid 1px;
+}
+
+table.grid thead td:first-child {
+	border-left:none;	
+}
+
+table.grid thead td:last-child {
+	border-right:none;	
+}
+
+
+table.grid thead td {
+	border:outset 1px;
+	background:#f3f3f3;
+	padding:4px;
+		
+}
+
+table.grid tbody td {
+	padding:3px;
+	border-bottom:solid 1px #ededea;
+	height:22px;
+}
+
+
+div.body {	
+}
+
+table.form .error {
+		border:solid 2px red;
+	
+	}
+
+	
+.formError{
+	border:solid 3px red;
+	padding:8px;
+	margin:8px;	
+	padding-left:52px;
+	background:#ffffee;
+	background-image: url(../media/icons/32x32/process-stop.png);
+	background-repeat:no-repeat;
+	background-position:10px 10px ;
+}
+	
+.formErrorTitle{
+	font-size:14px;
+	display:block;
+}	
+
+
+.formSuccess{
+	border:solid 3px green;
+	padding:8px;
+	margin:8px;	
+	padding-left:52px;
+	background:#ffffee;
+	background-image: url(../media/icons/32x32/face-smile.png);
+	background-repeat:no-repeat;
+	background-position:10px 10px ;
+}
+	
+.formSuccessTitle{
+	font-size:14px;
+	display:block;
+}	
+
+.menu_inner {
+	padding:8px;
+	background:#ddffdd;
+	border-left:solid 1px gray;
+	border-bottom:solid 1px #88aa88;
+	border-right:solid 1px #72c152;
+	cursor:pointer;
+	font-size:1.0em;
+	font-weight:bold;
+	color:green;
+
+}
+
+.menu_inner img{
+	margin-top:-4px;
+}
+
+
+
+li {
+	line-height:1.5em;
+	font-size:12px;
+	text-align:justify;
+	margin-left:2em;
+	margin-bottom:1.5em;
+}
+
+p {
+	line-height:1.5em !important;
+	font-size:1.3em !important;
+	text-align:justify;
+	margin:15px !important;
+}
+
+table.viewForm {
+	width:100%;
+	border-spacing:3px;
+}
+
+table.viewForm td.key {
+	padding:5px;
+	font-size:1.2em;
+	letter-spacing:0px;
+	font-weight:normal;
+	width:33%;
+}
+
+table.viewForm td.separator {
+	padding:5px;
+	font-size:1.2em;
+	letter-spacing:0px;
+	font-weight:bold;
+	color:white;
+	background-color:#de52a3;
+	border:solid 1px #a21170 ;
+}
+
+
+table.viewForm td {
+	background:#ffffff;
+	padding:5px;
+	font-size:1.2em;
+	letter-spacing:0px;
+	color:#a51b76;
+	font-weight:bold;
+
+}
+
+table.viewForm input {
+	font-size:1.2em;
+	padding::2px;	
+	vertical-align:middle;
+}
+
+table.viewForm textarea {
+	font-size:1.0em;
+	width:100%;
+	height:96px;
+	line-height:1.3em;
+}
+
+table.viewForm select {
+	font-size:1.2em;
+}
+
+.flora li {
+    list-style: none;
+}
+
+div.error {
+	font-size:11px;
+	font-weight:bold;
+	background:#ffdddd;
+	border:solid 2px #ff0000;
+	padding:5px;
+	color:red;
+
+	border-left:solid 14px #ff0000;
+}
+.error img {
+	vertical-align:middle;
+	margin-right:4px;
+	margin-left:4px;
+}
+
+.capacidadesGrid thead {	
+	color:#555555;
+	border-top:solid 1px #000000;
+	border-bottom:solid 1px #000000;
+	padding:5px;
+	font-size:15px;
+	font-weight:bold;
+	letter-spacing:-1px;
+	font-family:Arial;
+}
+
+.capacidadesGrid td.capacidad {
+	font-size:12px;
+	font-weight:bold;
+	font-family:Arial;
+}
+
+.capacidadesGrid td.descripcion {
+	font-size:10px;
+	
+}
+
+.capacidadesGrid td.recursos {
+	font-size:12px;
+	text-align:center;
+	
+}
+
+.capacidadesGrid td.porcentaje {
+	font-size:22px;
+	font-weight:bold;
+	letter-spacing:-1px;
+	text-align:center;
+}
+
+.capacidadesGrid td.puntuacion {
+	font-size:22px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.capacidadesAddGrid {	
+	margin-top:12px;
+}
+.capacidadesAddGrid thead {	
+	color:#555555;
+	border-top:solid 1px #000000;
+	border-bottom:solid 1px #000000;
+	padding:5px;
+	font-size:14px;
+	font-weight:bold;
+	letter-spacing:-1px;
+	font-family:Arial;
+}
+
+.capacidadesAddGrid select {
+	font-size:11px;
+	font-family:Arial;
+}
+
+.capacidadesGridSeparator {
+	background:#72c152;color:white;border-top:solid 1px #000000;border-bottom:solid 1px #000000;padding:5px;font-size:1.5em
+}
+
+.highlight{
+	background:#ffff55;
+	font-weight:bold;
+}
+
+.searchResult {
+	margin-bottom:12px;
+	padding-left:32px;
+	background:url(../media/icons/16x16/arrow_right.png);
+	background-repeat:no-repeat;
+	background-position:0px 3px;
+}
+
+.searchResultTitle{
+	font-size:2em;
+	display:block;
+	font-weight:bold;
+	letter-spacing:-1px;
+	color:#a72791;
+}
+
+.searchResultDescription{
+	color:#545454;
+	font-size:1.3em;
+	line-height:1.5em;
+	margin-top:2px;
+	
+}
+
+.breadcrumb {
+	font-size:1.2em;
+	color: #b737a1;
+	font-weight:bold;
+	margin-bottom:12px;
+}
+
+.breadcrumb img {
+	vertical-align:middle;
+	margin-top:-2px;
+	margin-right:4px;
+	margin-left:4px;
+}
+
