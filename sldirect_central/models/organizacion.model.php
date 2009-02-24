@@ -4,8 +4,8 @@
 * Directorio de Empresas, Servicios y Demandas
 * ----------------------------------------------------------------------------------
 * Copyright  (C) 2008-2009 CENATIC, Centro Nacional
-                           de Referencia en TICs de
-                           Fuentes Abiertas.
+*                          de Referencia en TICs de
+*                          Fuentes Abiertas.
 * ----------------------------------------------------------------------------------
 *
 * This file is part of SLDirect
@@ -23,9 +23,7 @@
 * along with bbPress; if not, write to the Free Software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 *
-* ----------------------------------------------------------------------------------
-* PHP version 5 ONLY. GPL2 ONLY.
-* ----------------------------------------------------------------------------------
+*----------------------------------------------------------------------------------
 *
 * @copyright 2008-2009 CENATIC
 * @license   http://www.gnu.org/licenses/gpl.txt GNU General Public License v2
