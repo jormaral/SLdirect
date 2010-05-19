@@ -46,7 +46,7 @@ $result = simplexml_load_file ($url . "getCapacityList.php");
 foreach ($result->capacity as $row) {
   $item = new capacidad ();
   $item->open ($row ["code"]);
-  if ($item->id == null) $database->query ("INSERT into capacidades (id, nombre) values (" . $row ["code"] . ", \"" . mysql_escape_string ($row) . "\");");
+  if ($item->id == null) $database->query ("INSERT into capacidades (id, nombre,categoria) values (" . $row ["code"] . ", \"" . mysql_escape_string ($row) . "\", \"".mysql_escape_string($row["category"])."\");");
 }
 
 $result = simplexml_load_file ($url . "getOrganizationClassificationList.php");

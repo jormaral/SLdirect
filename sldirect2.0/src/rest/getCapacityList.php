@@ -37,7 +37,7 @@ header ("Content-Type: text/xml");
 $capacitdades = new capacidad ();
 echo ("<DirectoryCapacityList>
 ");
-foreach ($capacitdades->getList () as $capacidad) echo ("  <capacity code=\"" . $capacidad->id . "\">" . $capacidad->nombre . "</capacity>
+foreach ($capacitdades->getList () as $capacidad) echo ("  <capacity code=\"" . $capacidad->id . "\" category=\"".$capacidad->categoria."\">" . $capacidad->nombre . "</capacity>
 ");
 echo ("</DirectoryCapacityList>
 ");
