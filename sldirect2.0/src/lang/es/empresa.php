@@ -312,7 +312,7 @@ function clearCertificaciones() {
 	
 	<tr>
 		<td colspan="2" class="separator">
-			Carrusel de Noticias
+			Carrusel de Noricias
 		</td>
 	</tr>
 	<tr>
@@ -653,16 +653,18 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = strtotime($evento->fecha);
-					$today = strtotime("today");
-					if($currentDate < $today)
+					$currentDate = new DateTime($evento->fecha);
+					$today = new DateTime();
+					$today->setTime(0,0,0);
+					
+					if($currentDate <$today)
 					{
 					echo("<tr><td class=\"evento\"><div style=\"float:right;\"><a onClick='showAssistants(");
 					$orgas = Array();
 					foreach($evento->getChildren("organizacionEvento") as $orga) {
 						$orgas [] = Array("id" => $orga->organizacion_id->id, "name" => $orga->organizacion_id->nombre);
+						
 					}
-					
 					echo json_encode($orgas) ; 
 					echo(");' href=\"#\"><b>Asistentes: </b>" . count($evento->getChildren("organizacionEvento")) . "</a></div>
 					<p style=\"font-size:1.2em;color:#99008b\"><b>" . $evento->titulo . "</b></p>
@@ -686,8 +688,9 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = strtotime($evento->fecha);
-					$today = strtotime("today");
+					$currentDate = new DateTime($evento->fecha);
+					$today = new DateTime();
+					$today->setTime(0,0,0);
 					
 					if($currentDate >=$today)
 					{
@@ -725,8 +728,9 @@ foreach ($context["organizacionSedes"] as $sede)
 				{
 					
 					$evento = $organizacionEvento->evento_id;
-					$currentDate = strtotime($evento->fecha);
-					$today = strtotime("today");
+					$currentDate = new DateTime($evento->fecha);
+					$today = new DateTime();
+					$today->setTime(0,0,0);
 					
 					if($currentDate >=$today)
 					{
@@ -842,19 +846,19 @@ foreach ($context["organizacionSedes"] as $sede)
 	</p>
 	<table class="grid capacidadesGrid" id="capacidades_table">
 		<thead>
-			<td>
-				Servicio
+			<td style="background-color:#BBBBBB">
+				Servicio / Sector especializado
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				Descripci&oacute;n
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				Recursos
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				% Negocio
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				Puntuaci&oacute;n
 			</td>
 			<td>
@@ -865,29 +869,29 @@ foreach ($context["organizacionSedes"] as $sede)
 	<?php
 		foreach ($context["organizacion"]->getChildren("capacidadOfertaOrganizacion") as $oferta)
 		{
-			$ofertas[$oferta->sector_id->id][] = $oferta;	
+			$ofertas[$oferta->capacidad_id->id][] = $oferta;	
 		}
-		foreach ($ofertas as $sector_id => $ofer)
+		foreach ($ofertas as $capacidad_id => $ofer)
 		{
 			?>
 			</tbody>
 			<thead>
-				<td colspan="6">
+				<td colspan="6" style="background-color:#DDDDDD">
 				<?php
-				$sector = new sector();
-				$sector->open($sector_id);
-				echo $sector->nombre;
+				$capacidad = new capacidad();
+				$capacidad->open($capacidad_id);
+				echo $capacidad->nombre;
 				?>
 				</td>
 			</thead>
-			<tbody id="sector_<?php echo $sector_id?>">
+			<tbody id="capacidad_<?php echo $capacidad_id?>">
 			<?php
 			foreach ($ofer as $oferta)
 			{
 		?>
 			<tr>
 				<td class="capacidad">
-					<?php echo $oferta->capacidad_id->nombre?>
+					<?php echo $oferta->sector_id->nombre?>
 				</td>
 				<td class="descripcion">
 					<?php echo $oferta->capacidad_id->descripcion?>
@@ -924,7 +928,7 @@ foreach ($context["organizacionSedes"] as $sede)
 			<tbody>
 				<tr>
 					<td>
-						<select id="capacidad_id" name="capacidad_id">
+						<select id="capacidad_id" name="capacidad_id" style="max-width: 300px">
 					<?php
 					$capacidades = new capacidad();
 					$last_cap = "";
@@ -945,7 +949,7 @@ foreach ($context["organizacionSedes"] as $sede)
 					</select>
 					</td>
 					<td>
-						<select id="sector_id" name="sector_id">
+						<select id="sector_id" name="sector_id" style="max-width: 300px">
 					<?php
 					$sector = new sector();
 					$last_sec = "";
@@ -1017,7 +1021,7 @@ foreach ($context["organizacionSedes"] as $sede)
 				return;
 			} 
 			var tr = dce("tr");
-			var td = dce("td"); td.className="capacidad"; td.innerHTML = data.capacidad; tr.appendChild(td);
+			var td = dce("td"); td.className="capacidad"; td.innerHTML = data.sector_name; tr.appendChild(td);
 			var td = dce("td"); td.className="descripcion"; td.innerHTML = data.descripcion; tr.appendChild(td);
 			var td = dce("td"); td.className="personas"; td.innerHTML = data.personas+ "&nbsp;personas."; tr.appendChild(td);
 			var td = dce("td"); td.className="porcentaje"; td.innerHTML = data.porcentaje+ " %"; tr.appendChild(td);
@@ -1029,15 +1033,15 @@ foreach ($context["organizacionSedes"] as $sede)
 
 			el = document.getElementById('capacidades_table');
 			for (i=0;i < el.tBodies.length;i++){
-				if (el.tBodies[i].id == "sector_"+data.sector){
+				if (el.tBodies[i].id == "capacidad_"+data.capacidad){
 					el.tBodies[i].appendChild(tr);
 					done=1;
 				}
 			}
 			if (done == 0){				
 				var thead = dce("thead"); var tbody = dce("tbody");
-				tbody.id = "sector_"+data.sector;
-				var td = dce("td"); td.setAttribute("colspan",6); td.innerHTML = data.sector_name;
+				tbody.id = "sector_"+data.capcidad;
+				var td = dce("td"); td.setAttribute("colspan",6);td.setAttribute("colspan",6);td.style.backgroundColor = "#dddddd"; td.innerHTML = data.capacidad_name;
 				thead.appendChild(td); tbody.appendChild(tr);
 				el.appendChild(thead); el.appendChild(tbody);
 			}
@@ -1052,10 +1056,10 @@ foreach ($context["organizacionSedes"] as $sede)
 <div id="demandas"  class="ui-tabs-panel">
 	<table class="grid capacidadesGrid" id="demandas_table">
 		<thead>
-			<td>
-				Servicio
+			<td style="background-color: #bbbbbb">
+				Servicio / Sector especializado
 			</td>
-			<td>
+			<td style="background-color: #bbbbbb">
 				Descripci&oacute;n
 			</td>
 			<td>
@@ -1066,31 +1070,31 @@ foreach ($context["organizacionSedes"] as $sede)
 	<?php
 		foreach ($context["organizacion"]->getChildren("capacidadDemandaOrganizacion") as $demanda)
 		{
-			$demandas[$demanda->sector_id->id][] = $demanda;	
+			$demandas[$demanda->capacidad_id->id][] = $demanda;	
 		}
-		foreach ($demandas as $sector_id => $deman)
+		foreach ($demandas as $capacidad_id => $deman)
 		{
 			?>
 			</tbody>
 			<thead>
-				<td colspan="3">
+				<td colspan="3" style="background-color: #dddddd">
 				<?php
-				$sector = new sector();
-				$sector->open($sector_id);
-				echo $sector->nombre;
+				$capacidad = new capacidad();
+				$capacidad->open($capacidad_id);
+				echo $capacidad->nombre;
 				?>
 				</td>
 			</thead>
-			<tbody id="sector_<?php echo $sector_id?>">
+			<tbody id="capacidad_<?php echo $capacidad_id?>">
 			<?php
 			foreach ($deman as $demanda)
 			{
 		?>
 			<tr>
-				<td>
-					<?php echo $demanda->capacidad_id->nombre?>
+				<td class="capacidad">
+					<?php echo $demanda->sector_id->nombre?>
 				</td>
-				<td>
+				<td class="descripcion">
 					<?php echo $demanda->capacidad_id->descripcion . "<br>" . $demanda->descripcion?>
 				</td>
 				<td>
@@ -1113,7 +1117,7 @@ foreach ($context["organizacionSedes"] as $sede)
 			<tbody>
 				<tr>
 					<td>
-						<select id="capacidad_id_demanda" name="capacidad_id">
+						<select id="capacidad_id_demanda" name="capacidad_id" style="max-width: 300px;">
 					<?php
 					$capacidades = new capacidad();
 					$last_cap = "";
@@ -1134,7 +1138,7 @@ foreach ($context["organizacionSedes"] as $sede)
 					</select>
 					</td>
 					<td>
-						<select id="sector_id_demanda" name="sector_id">
+						<select id="sector_id_demanda" name="sector_id" style="max-width:300px">
 					<?php
 					$sector = new sector();
 					$last_sec = "";
@@ -1151,7 +1155,7 @@ foreach ($context["organizacionSedes"] as $sede)
 						<td colspan="3">
 							
 							<span style="font-weight:bold;font-size:9px">Descripci&oacute;n</span>
-							<textarea id="descripcion" style="width:99%;height:64px;font-size:11px;"></textarea>
+							<textarea id="descripcion_demanda" style="width:99%;height:64px;font-size:11px;"></textarea>
 							
 						</td>
 					</tr>			
@@ -1178,8 +1182,8 @@ foreach ($context["organizacionSedes"] as $sede)
 			var capacidad_id = ($("#capacidad_id_demanda").attr("value"));
 			if (capacidad_id < 1) { alert ("No se ha seleccionado una capacidad. Por favor, seleccione una capacidad que no forme parte de un grupo de capacidades"); return ; }
 			var sector_id = ($("#sector_id_demanda").attr("value"));
-			var descripcion = ($("#descripcion").attr("value"));
-			jQuery.getJSON("jsonEmpresaDemandaAdd.php?organizacion_id=<?php echo $context["organizacion"]->id?>&capacidad_id="+capacidad_id+"&sector_id="+sector_id+"&descripcion="+descripcion,demanda_addReady);
+			var descripcion_demanda = ($("#descripcion_demanda").attr("value"));
+			jQuery.getJSON("jsonEmpresaDemandaAdd.php?organizacion_id=<?php echo $context["organizacion"]->id?>&capacidad_id="+capacidad_id+"&sector_id="+sector_id+"&descripcion="+descripcion_demanda,demanda_addReady);
 		}
 		
 		function demanda_addReady(data,scope){
@@ -1188,7 +1192,7 @@ foreach ($context["organizacionSedes"] as $sede)
 				return;
 			} 
 			var tr = dce("tr");
-			var td = dce("td"); td.className="capacidad"; td.innerHTML = data.capacidad; tr.appendChild(td);
+			var td = dce("td"); td.className="capacidad"; td.innerHTML = data.sector_name; tr.appendChild(td);
 			var td = dce("td"); td.className="descripcion"; td.innerHTML = data.descripcion_capacidad + "<br />" + data.descripcion; tr.appendChild(td);
 			var button = dce ("button");  var img = dce("img"); img.src= "media/icons/16x16/delete.png"; button.appendChild(img);
 			button.onclick = function () { demanda_delete(this, data.id); }
@@ -1197,15 +1201,15 @@ foreach ($context["organizacionSedes"] as $sede)
 
 			el = document.getElementById('demandas_table');
 			for (i=0;i < el.tBodies.length;i++){
-				if (el.tBodies[i].id == "sector_"+data.sector){
+				if (el.tBodies[i].id == "capacidad_"+data.capacidad){
 					el.tBodies[i].appendChild(tr);
 					done=1;
 				}
 			}
 			if (done == 0){				
 				var thead = dce("thead"); var tbody = dce("tbody");
-				tbody.id = "sector_"+data.sector;
- 				var td = dce("td"); td.setAttribute("colspan",6); td.innerHTML = data.sector_name;
+				tbody.id = "capacidad_"+data.capacidad;
+ 				var td = dce("td"); td.setAttribute("colspan",6); td.style.backgroundColor = "#dddddd"; td.innerHTML = data.capacidad_name;
 				thead.appendChild(td); tbody.appendChild(tr);
 				el.appendChild(thead); el.appendChild(tbody);
 			}

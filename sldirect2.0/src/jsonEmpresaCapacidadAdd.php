@@ -50,7 +50,8 @@
 		$capacidadOfertaOrganizacion->open($id);
 		echo (
 		"{\"id\": " . $id .
-		", \"capacidad\":\"".$capacidadOfertaOrganizacion->capacidad_id->nombre.
+		", \"capacidad\":\"".$capacidadOfertaOrganizacion->capacidad_id->id.
+		"\", \"capacidad_name\":\"".$capacidadOfertaOrganizacion->capacidad_id->nombre.
 		"\",\"sector\":\"".$capacidadOfertaOrganizacion->sector_id->id.
 		"\",\"sector_name\":\"".$capacidadOfertaOrganizacion->sector_id->nombre.
 		"\",\"descripcion\":\"".$capacidadOfertaOrganizacion->capacidad_id->descripcion."<br/>".$capacidadOfertaOrganizacion->descripcion.

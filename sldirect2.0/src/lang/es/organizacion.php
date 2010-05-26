@@ -414,19 +414,19 @@ foreach ($context["organizacionSedes"] as $sede)
 <div id="capacidades" class="ui-tabs-panel">
 	<table class="grid capacidadesGrid">
 		<thead>
-			<td>
-				Servicio
+			<td style="background-color:#BBBBBB">
+				Servicio / Sector especializado
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				Descripci&oacute;n
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				Recursos
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				% Negocio
 			</td>
-			<td>
+			<td style="background-color:#BBBBBB">
 				Puntuaci&oacute;n
 			</td>
 		</thead>
@@ -434,18 +434,19 @@ foreach ($context["organizacionSedes"] as $sede)
 		<?php
 		foreach ($context["organizacion"]->getChildren("capacidadOfertaOrganizacion") as $oferta)
 		{
-			$ofertas[$oferta->sector_id->id][] = $oferta;	
+			$ofertas[$oferta->capacidad_id->id][] = $oferta;	
+			
 		}
-		foreach ($ofertas as $sector_id => $ofer)
+		foreach ($ofertas as $capacidad_id => $ofer)
 		{
 			?>
 			</tbody>
 			<thead>
-				<td colspan="6" >
+				<td colspan="6" style="background-color:#dddddd">
 				<?php
-				$sector = new sector();
-				$sector->open($sector_id);
-				echo $sector->nombre;
+				$capacidad = new capacidad();
+				$capacidad->open($capacidad_id);
+				echo $capacidad->nombre;
 				?>
 				</td>
 			</thead>
@@ -456,7 +457,7 @@ foreach ($context["organizacionSedes"] as $sede)
 		?>
 			<tr>
 				<td class="capacidad">
-					<?php echo $oferta->capacidad_id->nombre?>
+					<?php echo $oferta->sector_id->nombre?>
 				</td>
 				<td class="descripcion">
 					<?php echo $oferta->capacidad_id->descripcion?>
@@ -491,9 +492,10 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = strtotime($evento->fecha);
-					$today = strtotime("today");
-
+					$currentDate = new DateTime($evento->fecha);
+					$today = new DateTime();
+					$today->setTime(0,0,0);
+					
 					if($currentDate <$today)
 					{
 					echo("<tr><td class=\"evento\"><div style=\"float:right;\"><b>Asistentes: </b>" . count($evento->getChildren("organizacionEvento")) . "</div>
@@ -518,8 +520,9 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = strtotime($evento->fecha);
-					$today = strtotime("today");
+					$currentDate = new DateTime($evento->fecha);
+					$today = new DateTime();
+					$today->setTime(0,0,0);
 					
 					if($currentDate >=$today)
 					{
@@ -529,7 +532,7 @@ foreach ($context["organizacionSedes"] as $sede)
 					<p><b>Fecha: </b>" . dateUStoEUR($evento->fecha) . "</p>
 					<p>" . $evento->descripcion . "</p>
 					<div style=\"text-align:right;padding:8px;\">");
-					$currentDate = strtotime($evento->fecha);
+					$currentDate = new DateTime($evento->fecha);
 					if($currentDate >=$today){
 					if($session->username == "") {
 						echo("<b>Inicie sesión para suscribirse a este evento</b>");
@@ -558,10 +561,10 @@ foreach ($context["organizacionSedes"] as $sede)
 <div id="demandas">
 	<table class="grid capacidadesGrid">
 		<thead>
-			<td>
-				Servicio
+			<td style="background-color:#bbbbbb">
+				Servicio / Sector especializado
 			</td>
-			<td>
+			<td style="background-color:#bbbbbb">
 				Descripci&oacute;n
 			</td>
 		
@@ -570,18 +573,18 @@ foreach ($context["organizacionSedes"] as $sede)
 	<?php
 		foreach ($context["organizacion"]->getChildren("capacidadDemandaOrganizacion") as $demanda)
 		{
-			$demandas[$demanda->sector_id->id][] = $demanda;	
+			$demandas[$demanda->capacidad_id->id][] = $demanda;	
 		}
-		foreach ($demandas as $sector_id => $deman)
+		foreach ($demandas as $capacidad_id => $deman)
 		{
 			?>
 			</tbody>
 			<thead>
-				<td colspan="6" >
+				<td colspan="6" style="background-color:#dddddd">
 				<?php
-				$sector = new sector();
-				$sector->open($sector_id);
-				echo $sector->nombre;
+				$capacidad = new capacidad();
+				$capacidad->open($capacidad_id);
+				echo $capacidad->nombre;
 				?>
 				</td>
 			</thead>
@@ -591,8 +594,8 @@ foreach ($context["organizacionSedes"] as $sede)
 			{
 		?>
 			<tr>
-				<td>
-					<?php echo $demanda->capacidad_id->nombre?>
+				<td class="capacidad">
+					<?php echo $demanda->sector_id->nombre?>
 				</td>
 				<td>
 					<?php echo $demanda->capacidad_id->descripcion . "<br />" . $demanda->descripcion?>
