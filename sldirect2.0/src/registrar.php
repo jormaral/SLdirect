@@ -38,7 +38,7 @@ function validate_nif ($value)
 {
  	  $letters = array ("T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E");
 	  $value_c = substr($value,0,strlen($value)-1);
-	  $check = substr($value,strlen($value-1),strlen($value));
+	  $check = substr($value,strlen($value)-1,1);
       $calculated_letter = $letters[ $value_c % 23];
       return $check == $calculated_letter;
 }
