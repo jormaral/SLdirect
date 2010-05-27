@@ -653,9 +653,8 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = new DateTime($evento->fecha);
-					$today = new DateTime();
-					$today->setTime(0,0,0);
+					$currentDate = strtotime($evento->fecha);
+					$today = strtotime("today");					
 					
 					if($currentDate <$today)
 					{
@@ -688,9 +687,8 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = new DateTime($evento->fecha);
-					$today = new DateTime();
-					$today->setTime(0,0,0);
+					$currentDate = strtotime($evento->fecha);
+					$today = strtotime("today");		
 					
 					if($currentDate >=$today)
 					{
@@ -728,9 +726,8 @@ foreach ($context["organizacionSedes"] as $sede)
 				{
 					
 					$evento = $organizacionEvento->evento_id;
-					$currentDate = new DateTime($evento->fecha);
-					$today = new DateTime();
-					$today->setTime(0,0,0);
+					$currentDate = strtotime($evento->fecha);
+					$today = strtotime("today");
 					
 					if($currentDate >=$today)
 					{

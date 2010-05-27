@@ -492,9 +492,8 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = new DateTime($evento->fecha);
-					$today = new DateTime();
-					$today->setTime(0,0,0);
+					$currentDate = strtotime($evento->fecha);
+					$today = strtotime("today");					
 					
 					if($currentDate <$today)
 					{
@@ -520,9 +519,8 @@ foreach ($context["organizacionSedes"] as $sede)
 			<?php
 				foreach ($context["organizacion"]->getChildren("evento") as $evento)
 				{
-					$currentDate = new DateTime($evento->fecha);
-					$today = new DateTime();
-					$today->setTime(0,0,0);
+					$currentDate = strtotime($evento->fecha);
+					$today = strtotime("today");
 					
 					if($currentDate >=$today)
 					{
@@ -532,7 +530,7 @@ foreach ($context["organizacionSedes"] as $sede)
 					<p><b>Fecha: </b>" . dateUStoEUR($evento->fecha) . "</p>
 					<p>" . $evento->descripcion . "</p>
 					<div style=\"text-align:right;padding:8px;\">");
-					$currentDate = new DateTime($evento->fecha);
+					$currentDate = strtotime($evento->fecha);
 					if($currentDate >=$today){
 					if($session->username == "") {
 						echo("<b>Inicie sesión para suscribirse a este evento</b>");
