@@ -1,0 +1,79 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="false">
+	<class name="net.neurowork.cenatic.centraldir.model.Satelite" table="satelite">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="name" />
+		<property name="hostUrl" column="hostUrl" />
+		<property name="user" column="user" />
+		<property name="password" column="password" />
+		<property name="lastRetrieval" column="lastRetrieval" />
+		<property name="numEmpresas" column="numEmpresas" />
+		<property name="lat" column="lat" />
+		<property name="lon" column="lon" />
+		<property name="lastOrgId" column="lastOrgId" />	
+		<property name="activado" column="activado" />	
+	</class>
+	
+	<!-- INDICATOR -->
+	
+	<class name="net.neurowork.cenatic.centraldir.model.indicators.Indicator" table="indicator">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="name" length="50" />
+		<property name="descripcion" column="descripcion" length="255" />
+		<property name="width" column="width"  />
+		<property name="height" column="height" />
+		
+		<property name="datasetGenerator" column="datasetGenerator" />	
+				
+		<many-to-one 
+			name="tipoIndicador" 
+			column="ti_id" 
+			class="net.neurowork.cenatic.centraldir.model.indicators.TipoIndicador" />
+		<many-to-one 
+			name="tipoGrafico" 
+			column="tg_id" 
+			class="net.neurowork.cenatic.centraldir.model.indicators.TipoGrafico" />
+		<many-to-one 
+			name="agruparPor" 
+			column="ap_id" 
+			class="net.neurowork.cenatic.centraldir.model.indicators.AgruparPor" />
+	</class>
+	
+	<!-- TIPO GRAFICO -->
+	
+	<class name="net.neurowork.cenatic.centraldir.model.indicators.TipoGrafico" table="tipo_grafico">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="name" />
+		<property name="creator" column="creator" />
+		<property name="datasetCreator" column="datasetCreator" />	
+	</class>
+	
+	<!-- TIPO INDICADOR -->
+	
+	<class name="net.neurowork.cenatic.centraldir.model.indicators.TipoIndicador" table="tipo_indicador">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="name" />
+		<property name="creator" column="creator" />
+	</class>
+	
+	<!-- AGRUPAR POR -->
+	
+	<class name="net.neurowork.cenatic.centraldir.model.indicators.AgruparPor" table="agrupar_por">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="name" />
+		<property name="columnName" column="columnName" />	
+		
+	</class>
+</hibernate-mapping>

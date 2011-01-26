@@ -1,0 +1,8 @@
+INSERT INTO `users` (username, password, enabled) VALUES ('admin','admin',1),('guest','guest',1);
+
+INSERT INTO `groups` VALUES (1,'Users'),(2,'Administrators');
+
+INSERT INTO `authorities` VALUES ('admin','ROLE_ADMIN'),('admin','ROLE_USER'),('guest','ROLE_USER');
+
+INSERT INTO `group_members` VALUES (1,'guest',1),(2,'admin',2);
+

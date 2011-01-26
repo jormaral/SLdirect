@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Application context definition for Process Map Web Application on Hibernate.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr" 
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- ========================= SERVICES DEFINITIONS ========================= -->
+	
+	<!-- USER SERVICE  -->
+	<bean id="userService" class="net.neurowork.cenatic.centraldir.service.impl.UserServiceImpl" />
+	
+	<!-- SATELITE SERVICE -->
+	<bean id="sateliteService" class="net.neurowork.cenatic.centraldir.service.impl.SateliteServiceImpl" />
+	
+	<!-- INDICADOR SERVICE -->
+	<bean id="indicadorService" class="net.neurowork.cenatic.centraldir.service.impl.IndicadorServiceImpl" />
+
+	<!-- ORGANIZACION SERVICE -->
+	<bean id="organizacionService" class="net.neurowork.cenatic.centraldir.service.impl.OrganizacionServiceImpl" />
+	
+	<!-- PROVINCIA SERVICE -->
+	<bean id="provinciaService" class="net.neurowork.cenatic.centraldir.service.impl.ProvinciaServiceImpl" />
+	
+	<!-- ORGANIZACION SEDE SERVICE -->
+	<bean id="organizacionSedeService" class="net.neurowork.cenatic.centraldir.service.impl.OrganizacionSedeServiceImpl" />
+
+	<!-- FORMA JURIDICA SERVICE -->
+	<bean id="formaJuridicaService" class="net.neurowork.cenatic.centraldir.service.impl.FormaJuridicaServiceImpl" />
+
+	<!-- SECTOR SERVICE -->
+	<bean id="sectorService" class="net.neurowork.cenatic.centraldir.service.impl.SectorServiceImpl" />
+	
+	<!-- ASOCIACION SERVICE -->
+	<bean id="asociacionService" class="net.neurowork.cenatic.centraldir.service.impl.AsociacionServiceImpl" />
+
+	<!-- ORGANIZACION ASOCIACION SERVICE -->
+	<bean id="organizacionAsociacionService" class="net.neurowork.cenatic.centraldir.service.impl.OrganizacionAsociacionServiceImpl" />
+
+	<!-- OFERTA SERVICE -->
+	<bean id="ofertaService" class="net.neurowork.cenatic.centraldir.service.impl.OfertaServiceImpl" />
+
+	<!-- DEMANDA SERVICE -->
+	<bean id="demandaService" class="net.neurowork.cenatic.centraldir.service.impl.DemandaServiceImpl" />
+
+	<!-- DEMANDA SERVICE -->
+	<bean id="eventoService" class="net.neurowork.cenatic.centraldir.service.impl.EventoServiceImpl" />
+	
+</beans>

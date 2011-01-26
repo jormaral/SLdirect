@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!--
+  - Mapping file for the Hibernate implementation 
+-->
+<hibernate-mapping auto-import="true" default-lazy="false">
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.Asociacion" table="asociaciones">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+
+		<property name="icon" column="icon" />
+		<property name="url" column="url" />
+		
+   	<set name="organizacionAsociacions" inverse="true" lazy="true" table="organizaciones_asociaciones">
+       <key>
+         <column name="asociacion_id" not-null="true" />
+       </key>
+       <one-to-many class="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionAsociacion" />
+   </set>		
+		
+	</class>	
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionAsociacion" table="organizaciones_asociaciones">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+   <many-to-one name="organizacion" class="net.neurowork.cenatic.centraldir.model.satelite.Organizacion">
+       <column name="organizacion_id" not-null="true" />
+   </many-to-one>
+   <many-to-one name="asociacion" class="net.neurowork.cenatic.centraldir.model.satelite.Asociacion">
+        <column name="asociacion_id" not-null="true" />
+    </many-to-one>
+	</class>	
+	
+	<!-- OrganizacionSatelite -->
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionSatelite" 
+			   table="organizaciones_satelites">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+   <many-to-one name="organizacion" class="net.neurowork.cenatic.centraldir.model.satelite.Organizacion">
+       <column name="organizacion_id" not-null="true" />
+   </many-to-one>
+   <many-to-one name="satelite" class="net.neurowork.cenatic.centraldir.model.Satelite">
+        <column name="satelite_id" not-null="true" />
+    </many-to-one>
+	</class>	
+
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionCapacidadOferta" 
+	       table="capacidades_ofertas_organizaciones">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+   <many-to-one name="organizacion" class="net.neurowork.cenatic.centraldir.model.satelite.Organizacion">
+       <column name="organizacion_id" not-null="true" />
+   </many-to-one>
+   <many-to-one name="capacidad" class="net.neurowork.cenatic.centraldir.model.satelite.Capacidad">
+        <column name="capacidad_id" not-null="true" />
+    </many-to-one>
+   <many-to-one name="sector" class="net.neurowork.cenatic.centraldir.model.satelite.Sector">
+        <column name="sector_id" not-null="true" />
+    </many-to-one>
+
+		<property name="recursos" column="recursos" />
+		<property name="porcentajeFacturacion" column="porcentajeFacturacion" />
+		<property name="puntuacion" column="puntuacion" />
+		<property name="descripcion" column="descripcion" />
+    
+	</class>	
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionCapacidadDemanda" 
+	       table="capacidades_demandas_organizaciones">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+   <many-to-one name="organizacion" class="net.neurowork.cenatic.centraldir.model.satelite.Organizacion">
+       <column name="organizacion_id" not-null="true" />
+   </many-to-one>
+   <many-to-one name="capacidad" class="net.neurowork.cenatic.centraldir.model.satelite.Capacidad">
+        <column name="capacidad_id" not-null="true" />
+    </many-to-one>
+   <many-to-one name="sector" class="net.neurowork.cenatic.centraldir.model.satelite.Sector">
+        <column name="sector_id" not-null="true" />
+    </many-to-one>
+		<property name="descripcion" column="descripcion" />
+		<property name="anunciado" column="anunciado" />
+	</class>		
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionSede" 
+	       table="organizaciones_sedes">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+   	<many-to-one name="organizacion" class="net.neurowork.cenatic.centraldir.model.satelite.Organizacion">
+    	<column name="organizacion_id" not-null="true" />
+  	</many-to-one>
+  	<property name="latitud" column="latitud" />
+  	<property name="longitud" column="longitud" />
+  	<property name="direccion" column="direccion" />
+  	<property name="localidad" column="localidad" />
+  	<property name="telefonoContacto" column="telefonoContacto" />
+  	<property name="personaContacto" column="personaContacto" />
+  	<property name="mailContacto" column="mailContacto" />
+   	<many-to-one name="provincia" class="net.neurowork.cenatic.centraldir.model.satelite.Provincia">
+    	<column name="provincia_id" not-null="true" />
+    </many-to-one>
+  	<property name="codigoPostal" column="codigoPostal" />
+  	<property name="hombres" column="hombres" />
+  	<property name="mujeres" column="mujeres" />
+	</class>		
+	
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.Capacidad" table="capacidades">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+
+		<property name="cpc" column="cpc" />
+		<property name="isic" column="isic" />
+		<property name="descripcion" column="descripcion" />
+		<property name="categoria" column="categoria" />
+	</class>
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.Evento" table="eventos">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="titulo" column="titulo" />
+		<property name="descripcion" column="descripcion" />
+		<property name="fecha" column="fecha" />
+		<property name="localizacion" column="localizacion" />
+
+		<many-to-one name="organizacion" 
+								 column="organizacion_id" 
+								 class="net.neurowork.cenatic.centraldir.model.satelite.Organizacion"/>
+	</class>
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionEvento" table="organizaciones_eventos">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<many-to-one name="organizacion" 
+			column="organizacion_id" 
+			class="net.neurowork.cenatic.centraldir.model.satelite.Organizacion"/>
+		<many-to-one name="evento" 
+			column="evento_id" 
+			class="net.neurowork.cenatic.centraldir.model.satelite.Evento"/>	
+	</class>
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.Sector" table="sectores">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+	</class>
+
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.ClaseEmpresa" table="clases_empresas">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+	</class>	
+		
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.Directorio" table="directorios">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="username" column="username" />
+		<property name="password" column="password" />
+		<property name="token" column="token" />
+	</class>
+
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.FormaJuridica" table="formas_juridicas">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+	</class>	
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.Provincia" table="provincias">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+	</class>
+
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.ClasificacionOrganizacion" 
+				 table="organizaciones_clasificaciones">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+		<property name="codigo" column="codigo" />
+	</class>
+	
+	<class name="net.neurowork.cenatic.centraldir.model.satelite.Organizacion" 
+				 table="organizaciones">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="nombre" />
+
+
+		<property name="descripcion" column="descripcion" />
+		<property name="web" column="web" />
+		<property name="logoUrl" column="logo_url" />
+		<property name="direccion" column="direccion" />
+		<property name="certificacionesCalidad" column="certificacionesCalidad" />
+		<property name="partners" column="partners" />
+		<property name="grupoEmpresarial" column="grupoEmpresarial" />
+		<property name="participacionImasD" column="participacionImasD" />
+		<property name="relacionesComunidad" column="relacionesComunidad" />
+		<property name="localidad" column="localidad" />
+		<property name="cif" column="cif" />
+
+		<property name="username" column="username" />
+		<property name="password" column="password" />
+		<property name="hashCreacion" column="hashCreacion" />
+		
+		<property name="telefono" column="telefono" length="255" />
+		<property name="email" column="email" length="255" />
+		<property name="newsTitle" column="news_title" length="255" />
+		
+		<property name="newsBody" column="news_body" />
+		<property name="certificacionCenatic" column="certificacionCenatic" />
+		<property name="actividadesImasD" column="actividadesImasD" />
+		<property name="codigoPostal" column="codigoPostal" />
+		<property name="anoConstitucion" column="anoConstitucion" />
+		
+		<many-to-one name="directorio"
+			column="directorio_id"
+			class="net.neurowork.cenatic.centraldir.model.satelite.Directorio"
+			not-null="false"/>
+		<many-to-one name="formaJuridica" 
+		             column="formaJuridica_id" 
+		             class="net.neurowork.cenatic.centraldir.model.satelite.FormaJuridica"
+		             not-null="false"/>
+		<many-to-one name="claseEmpresa" 
+					column="claseEmpresa_id"
+					class="net.neurowork.cenatic.centraldir.model.satelite.ClaseEmpresa"
+					not-null="false"/>
+		<many-to-one name="clasificacionOrganizacion" 
+		             column="organizacionClasificacion_id" 
+		             class="net.neurowork.cenatic.centraldir.model.satelite.ClasificacionOrganizacion"
+		             not-null="false"/>
+		<many-to-one name="provincia" 
+		             column="provincia_id" 
+		             class="net.neurowork.cenatic.centraldir.model.satelite.Provincia"
+		             not-null="false"/>
+
+   		<set name="organizacionAsociacions" 
+   			 cascade="all" 
+   			 table="organizaciones_asociaciones">
+       		<key>
+         		<column name="organizacion_id" not-null="true" />
+       		</key>
+       		<one-to-many class="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionAsociacion" />
+   		</set>		
+
+   		<set name="sedes" 
+   		     cascade="all" 
+   		     table="organizaciones_sedes">
+       		<key>
+         		<column name="organizacion_id" not-null="true" />
+       		</key>
+       		<one-to-many class="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionSede" />
+   		</set>	
+   			
+   		<set name="demandas" 
+   		     cascade="all" 
+   		     table="capacidades_demandas_organizaciones">
+       		<key>
+         		<column name="organizacion_id" not-null="true" />
+       		</key>
+       		<one-to-many class="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionCapacidadDemanda" />
+   		</set>	
+   			
+   		<set name="ofertas" cascade="all" table="capacidades_ofertas_organizaciones">
+       		<key>
+         		<column name="organizacion_id" not-null="true" />
+       		</key>
+       		<one-to-many class="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionCapacidadOferta" />
+   		</set>		
+
+   		<set name="eventos" cascade="all" table="organizaciones_eventos">
+       		<key>
+         		<column name="organizacion_id" not-null="true" />
+       		</key>
+       		<one-to-many class="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionEvento" />
+   		</set>		
+		<!-- Organizacion -> Satelites -->
+   	<set name="satelites" cascade="all" table="organizaciones_satelites">
+       	<key>
+        	<column name="organizacion_id" not-null="true" />
+      	</key>
+    	<one-to-many class="net.neurowork.cenatic.centraldir.model.satelite.OrganizacionSatelite" />
+   	</set>		
+
+		<property name="xmlHash" column="xmlHash" length="40" />
+
+	</class>	
+		
+</hibernate-mapping>

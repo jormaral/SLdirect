@@ -1,0 +1,37 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false">
+	<class name="net.neurowork.cenatic.centraldir.model.Group" table="groups">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+		<property name="name" column="group_name" length="50" />
+	</class>	
+
+	<class name="net.neurowork.cenatic.centraldir.model.User" table="users">
+		<id name="username" column="username" length="50"/>
+		<property name="password" column="password" length="50"/>
+		<property name="enabled" column="enabled" />
+	</class>
+	
+	<class name="net.neurowork.cenatic.centraldir.model.Authority" table="authorities">
+		<composite-id>
+			<key-many-to-one name="user" class="net.neurowork.cenatic.centraldir.model.User">
+				<column name="username" not-null="true" />
+			</key-many-to-one>
+      <key-property name="authority" column="authority" length="50"/>
+		</composite-id>		
+	</class>
+
+	<class name="net.neurowork.cenatic.centraldir.model.GroupMember" table="group_members">
+		<id name="id" column="id">
+			<generator class="identity"/>
+		</id>
+   <many-to-one name="user" class="net.neurowork.cenatic.centraldir.model.User">
+       <column name="username" not-null="true" />
+   </many-to-one>
+   <many-to-one name="group" class="net.neurowork.cenatic.centraldir.model.Group">
+        <column name="group_id" not-null="true" />
+    </many-to-one>
+	</class>	
+</hibernate-mapping>

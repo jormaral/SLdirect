@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Application context definition for Process Map Web Application on Hibernate.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr" 
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- ========================= SERVICES DEFINITIONS ========================= -->
+	
+	<!-- USER SERVICE  -->
+	<bean id="userService" class="net.neurowork.cenatic.centraldir.service.impl.UserServiceImpl" />
+	
+	<!-- SATELITE SERVICE -->
+	<bean id="sateliteService" class="net.neurowork.cenatic.centraldir.service.impl.SateliteServiceImpl" />
+	
+	<!-- INDICADOR SERVICE -->
+	<bean id="indicadorService" class="net.neurowork.cenatic.centraldir.service.impl.IndicadorServiceImpl" />
+
+	<!-- ORGANIZACION SERVICE -->
+	<bean id="organizacionService" class="net.neurowork.cenatic.centraldir.service.impl.OrganizacionServiceImpl" />
+	
+	<!-- PROVINCIA SERVICE -->
+	<bean id="provinciaService" class="net.neurowork.cenatic.centraldir.service.impl.ProvinciaServiceImpl" />
+	
+	<!-- ORGANIZACION SEDE SERVICE -->
+	<bean id="organizacionSedeService" class="net.neurowork.cenatic.centraldir.service.impl.OrganizacionSedeServiceImpl" />
+
+	<!-- FORMA JURIDICA SERVICE -->
+	<bean id="formaJuridicaService" class="net.neurowork.cenatic.centraldir.service.impl.FormaJuridicaServiceImpl" />
+
+	<!-- SECTOR SERVICE -->
+	<bean id="sectorService" class="net.neurowork.cenatic.centraldir.service.impl.SectorServiceImpl" />
+	
+	<!-- ASOCIACION SERVICE -->
+	<bean id="asociacionService" class="net.neurowork.cenatic.centraldir.service.impl.AsociacionServiceImpl" />
+
+	<!-- ORGANIZACION ASOCIACION SERVICE -->
+	<bean id="organizacionAsociacionService" class="net.neurowork.cenatic.centraldir.service.impl.OrganizacionAsociacionServiceImpl" />
+
+	<!-- OFERTA SERVICE -->
+	<bean id="ofertaService" class="net.neurowork.cenatic.centraldir.service.impl.OfertaServiceImpl" />
+
+	<!-- DEMANDA SERVICE -->
+	<bean id="demandaService" class="net.neurowork.cenatic.centraldir.service.impl.DemandaServiceImpl" />
+
+	<!-- DEMANDA SERVICE -->
+	<bean id="eventoService" class="net.neurowork.cenatic.centraldir.service.impl.EventoServiceImpl" />
+
+	<!-- SCHEDULLING -->
+	<bean name="sateliteJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+	  <property name="jobClass" value="net.neurowork.cenatic.centraldir.workers.SatelitesExecutorJob" />
+	  <property name="jobDataAsMap">
+	    <map>
+	      <entry key="sateliteService" >
+	      	<ref bean="sateliteService"/>
+	      </entry>
+	      <entry key="provinciaService" >
+	      	<ref bean="provinciaService"/>
+	      </entry>
+	      <entry key="organizacionService" >
+	      	<ref bean="organizacionService"/>
+	      </entry>
+	      <entry key="organizacionSedeService">
+	      	<ref bean="organizacionSedeService"/>
+	      </entry>
+	      <entry key="formaJuridicaService">
+	      	<ref bean="formaJuridicaService"/>
+	      </entry>
+	      <entry key="sectorService">
+	      	<ref bean="sectorService"/>
+	      </entry>
+	      <entry key="asociacionService">
+	      	<ref bean="asociacionService"/>
+	      </entry>
+	    </map>
+	  </property>
+	</bean>	
+	
+	
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	    <!-- see the example of method invoking job above -->
+	    <property name="jobDetail" ref="sateliteJob" />
+	    <!-- 10 seconds -->
+	    <property name="startDelay" value="10000" />
+	    <!-- repeat every 500 seconds -->
+	    <property name="repeatInterval" value="50000" />
+	     <!-- repeat every 43200 seconds (12 hours) 
+	    <property name="repeatInterval" value="4320000" />
+	    -->  
+	</bean>
+	
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	    <property name="jobDetail" ref="sateliteJob" />
+	    <!-- run every morning at 6 AM -->
+	    <property name="cronExpression" value="0 0 6 * * ?" />
+	</bean>
+	
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	            <ref bean="cronTrigger" />
+	            <ref bean="simpleTrigger" />
+	        </list>
+	    </property>
+	</bean>	
+		
+</beans>

@@ -1,0 +1,11 @@
+#Thu Jan 13 01:37:54 ART 2011
+eclipse.preferences.version=1
+encoding//src/main/resources/central-dir.hbm.xml=UTF-8
+encoding//src/main/resources/db/mysql/initDB.txt=UTF-8
+encoding//src/main/resources/db/mysql/populateDB.txt=UTF-8
+encoding//src/main/resources/jdbc.properties=UTF-8
+encoding//src/main/resources/log4j.properties=UTF-8
+encoding//src/main/resources/messages.properties=UTF-8
+encoding//src/main/resources/messages_en.properties=UTF-8
+encoding//src/main/resources/messages_es.properties=UTF-8
+encoding/<project>=UTF-8
